@@ -54,7 +54,7 @@ namespace Lab4_Application
             {
                 if (Convert.ToString(str3[0]) != "+")
                 {
-                    bool success = int.TryParse(str3, out int tel);
+                    bool success = long.TryParse(str3, out long tel);
 
                     if (success && str3.Length == 11) MessageBox.Show("Верно введён номер телефона");
                     else MessageBox.Show("Не верно введён номер телефона");
@@ -65,12 +65,9 @@ namespace Lab4_Application
                     str3 = str3.Replace(Convert.ToString(str3[0]), "0");
                     //MessageBox.Show("asd " + str3);
 
-                    bool success = int.TryParse(str3, out int tel);
+                    bool success = long.TryParse(str3, out long tel);
 
-                    if (success) MessageBox.Show("Верно введён номер телефона");
-                    else MessageBox.Show("Не верно введён номер телефона");
-
-                    if (str3.Length == 12) MessageBox.Show("Телефон введён верно");
+                    if (success && str3.Length == 12) MessageBox.Show("Верно введён номер телефона");
                     else MessageBox.Show("Не верно введён номер телефона");
                 }
             }
