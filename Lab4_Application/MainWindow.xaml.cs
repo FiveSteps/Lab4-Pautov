@@ -20,14 +20,12 @@ namespace Lab4_Application
             if (str1.Length == 3)
             {
                 if (textBox1.Text == "" || (str1.Length > 3 || str1.Length < 2) || (char.IsLower(str1[0][0]))
-                    || (char.IsLower(str1[1][0])) || (char.IsLower(str1[2][0])))
-                    MessageBox.Show("В строке 'ФИО' ошибка");
+                    || (char.IsLower(str1[1][0])) || (char.IsLower(str1[2][0]))) MessageBox.Show("В строке 'ФИО' ошибка");
             }
             else if (str1.Length == 2)
             {
                 if (textBox1.Text == "" || (str1.Length > 3 || str1.Length < 2) || (char.IsLower(str1[0][0]))
-                    || (char.IsLower(str1[1][0])))
-                    MessageBox.Show("В строке 'ФИО' ошибка");
+                    || (char.IsLower(str1[1][0]))) MessageBox.Show("В строке 'ФИО' ошибка");
             }
             else MessageBox.Show("В строке 'ФИО' ошибка");
         }
@@ -52,41 +50,31 @@ namespace Lab4_Application
         {
             string str3 = textBox3.Text;
 
-            if (Convert.ToString(str3[0]) != "+")
+            if (str3.Length != 0)
             {
-                try
+                if (Convert.ToString(str3[0]) != "+")
                 {
-                    if (int.TryParse(str3, out int tel) && str3.Length == 11)
-                        MessageBox.Show("Телефон введён верно");
+                    bool success = int.TryParse(str3, out int tel);
+
+                    if (success && str3.Length == 11) MessageBox.Show("Верно введён номер телефона");
+                    else MessageBox.Show("Не верно введён номер телефона");
                 }
-                catch (Exception)
+
+                if (Convert.ToString(str3[0]) == "+")
                 {
-                    MessageBox.Show("Не верно введёт номер телефона");
+                    str3 = str3.Replace(Convert.ToString(str3[0]), "0");
+                    //MessageBox.Show("asd " + str3);
+
+                    bool success = int.TryParse(str3, out int tel);
+
+                    if (success) MessageBox.Show("Верно введён номер телефона");
+                    else MessageBox.Show("Не верно введён номер телефона");
+
+                    if (str3.Length == 12) MessageBox.Show("Телефон введён верно");
+                    else MessageBox.Show("Не верно введён номер телефона");
                 }
             }
-            //if () return;
-            //else 
-
-            if (Convert.ToString(str3[0]) == "+")
-            {
-                str3 = str3.Replace(Convert.ToString(str3[0]), "0");
-                MessageBox.Show("asd " + str3);
-
-                try
-                {
-                    if (int.TryParse(str3, out int tel) && str3.Length == 12)
-                        MessageBox.Show("Телефон введён верно");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Не верно введёт номер телефона");
-                }
-                
-
-                
-                //else MessageBox.Show("Не верно введёт номер телефона");
-            }
-
+            else MessageBox.Show("Не верно введён номер телефона");
         }
 
 
@@ -95,7 +83,60 @@ namespace Lab4_Application
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            string strMail = textBox4.Text;
+            string mailWord = "mail.ru";
+            int countDog = 0;
 
+            while (true)
+            {
+                foreach (var ch in strMail) if (ch == '@' && strMail[0] != '@' &&
+                        strMail[strMail.Length - 1] != '@') countDog++;
+
+                if (countDog != 1)
+                {
+                    MessageBox.Show("E-mail введён не корректно");
+                    break;
+                }
+
+
+
+                for (int i = 0; i < strMail.Length; i++)
+                {
+                    int countAfterDog = 0;
+                    if (strMail[i - 1] == '@' && strMail[0] != '@' &&
+                        strMail[strMail.Length - 1] != '@') countAfterDog++;
+                    else MessageBox.Show("E-mail введён не корректно");
+
+                    if ((strMail[i] == '@' && strMail[0] != '@' && strMail[strMail.Length - 1] != '@') &&
+                    strMail.IndexOf(mailWord) == strMail.Length - countAfterDog)
+                    {
+
+                    }
+                    else MessageBox.Show("E-mail введён не корректно");
+                }
+
+
+
+
+
+
+
+                //foreach (var ch in strMail)
+                //{
+                //    int countAfterDog = 0;
+                //    if ()
+                //        if ((ch == '@' && strMail[0] != '@' && strMail[strMail.Length - 1] != '@') &&
+                //        strMail.IndexOf(mailWord) == strMail.Length - countAfterDog)
+                //        {
+
+                //        }
+                //}
+
+
+
+
+                break;
+            }
         }
     }
 }
