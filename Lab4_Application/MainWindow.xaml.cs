@@ -31,16 +31,6 @@ namespace Lab4_Application
         }
 
 
-        /// <summary> Кнопка Проверка Даты Рождения </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            string[] str2 = textBox2.Text.Split('.');
-
-            if (str2[0].Length != 2 || str2[1].Length != 2 || str2[2].Length != 4)
-                MessageBox.Show("В строке 'Дата рождения' ошибка");
-        }
 
 
         /// <summary> Кнопка Проверка Телефона </summary>
@@ -75,6 +65,60 @@ namespace Lab4_Application
         }
 
 
+
+
+        /// <summary> Кнопка Проверка Даты Рождения </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string str2 = textBox2.Text;
+
+            while (true)
+            {
+                foreach (var ch in str2)
+                {
+                    if (ch == '.')
+                    {
+                        str2 = str2.Replace(ch, '0');
+                    }
+                }
+                bool success = long.TryParse(str2, out long birth);
+
+                if (!success)
+                {
+                    MessageBox.Show("В строке 'Дата рождения' ошибка");
+                    break;
+                }
+
+                string[] strSplit = textBox2.Text.Split('.');
+
+
+                if ((strSplit[0].Length == 2 && strSplit[1].Length == 2 &&
+                    strSplit[2].Length == 4)) MessageBox.Show("Дата рождения введена корректно");
+                else MessageBox.Show("В строке 'Дата рождения' ошибка");
+
+                //Дни
+                if (!(Convert.ToInt32(strSplit[0]) > 31) &&
+                    !(Convert.ToInt32(strSplit[0]) < 1)) MessageBox.Show("В строке 'Дата рождения' ошибка");
+
+                //Месяцы
+                if (!(Convert.ToInt32(strSplit[1]) > 12) &&
+                    !(Convert.ToInt32(strSplit[1]) < 1)) MessageBox.Show("В строке 'Дата рождения' ошибка");
+
+                //Года
+                if (!(Convert.ToInt32(strSplit[2]) > 2020) &&
+                    !(Convert.ToInt32(strSplit[2]) < 1900)) MessageBox.Show("В строке 'Дата рождения' ошибка");
+
+                break;
+            }
+        }
+
+
+
+
+
+
         /// <summary> Кнопка Проверка e-mail </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -95,23 +139,46 @@ namespace Lab4_Application
                     break;
                 }
 
+                //int countAfterDog = 0;
+                string strTemp = "";
 
+                int a = strMail.IndexOf(mailWord);
+                //MessageBox.Show("asd: " + a);
 
-                for (int i = 0; i < strMail.Length; i++)
-                {
-                    int countAfterDog = 0;
-                    if (strMail[i - 1] == '@' && strMail[0] != '@' &&
-                        strMail[strMail.Length - 1] != '@') countAfterDog++;
-                    else MessageBox.Show("E-mail введён не корректно");
+                if (a < 0) MessageBox.Show("E-mail введён не корректно"); 
 
-                    if ((strMail[i] == '@' && strMail[0] != '@' && strMail[strMail.Length - 1] != '@') &&
-                    strMail.IndexOf(mailWord) == strMail.Length - countAfterDog)
-                    {
+                //foreach (var ch in strMail)
+                //{
+                //    if (ch == '@')
+                //    {
+                //        for (int i = 0; i < strMail.Length; i++)
+                //        {
+                //            if (i >= 1 && strMail[i - 1] == '@')
+                //            {
+                //                strTemp += strMail[i];
+                //                //countAfterDog++;
+                //            }
+                //            //else
+                //            //{
+                //            //    MessageBox.Show("E-mail введён не корректно");
+                //            //    break;
+                //            //}
 
-                    }
-                    else MessageBox.Show("E-mail введён не корректно");
-                }
+                //            //if ((strMail[i] == '@' && strMail[0] != '@' && strMail[strMail.Length - 1] != '@') &&
+                //            //strMail.IndexOf(mailWord) == strMail.Length - countAfterDog)
+                //            //{
 
+                //            //}
+                //            //else MessageBox.Show("E-mail введён не корректно");
+                //        }
+                //    }
+                //}
+
+                //if (strTemp != mailWord)
+                //{
+                //    MessageBox.Show("E-mail введён не корректно");
+                //    break;
+                //}
 
 
 
